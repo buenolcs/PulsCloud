@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   // COUNTDOWN TIMER
   // ========================================
-  var workshopDate = new Date('2025-04-09T19:30:00-03:00');
+  var workshopDate = new Date('2026-04-09T19:30:00-03:00');
 
   var daysEl = document.getElementById('days');
   var hoursEl = document.getElementById('hours');
