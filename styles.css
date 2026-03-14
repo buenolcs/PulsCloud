@@ -433,7 +433,7 @@ a {
 
 .hero-image-wrapper {
   position: relative;
-  max-width: 560px;
+  max-width: 728px;
   width: 100%;
   overflow: hidden;
 }
@@ -458,12 +458,13 @@ a {
 .hero-image-fade {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  height: 120px;
-  background: linear-gradient(to top, #0f172a 0%, rgba(15, 23, 42, 0.85) 30%, rgba(15, 23, 42, 0) 100%);
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.4), rgba(147, 197, 253, 0.5), rgba(59, 130, 246, 0.4), transparent);
   z-index: 2;
   pointer-events: none;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.3), 0 0 4px rgba(59, 130, 246, 0.2);
 }
 
 /* ========================================
@@ -1750,6 +1751,20 @@ a {
     font-size: 0.88rem;
   }
 
+  .hero-image-wrapper {
+    max-height: 350px;
+  }
+
+  .hero-image {
+    object-fit: cover;
+    object-position: bottom center;
+    height: 350px;
+  }
+
+  .hero-visual {
+    margin-top: -20px;
+  }
+
   .bonus-mega-content {
     padding: 28px 20px;
   }
@@ -1760,6 +1775,20 @@ a {
 
   .consequencias-banner {
     padding: 32px 20px;
+  }
+
+  .countdown {
+    gap: 6px;
+  }
+
+  .countdown-number {
+    min-width: 65px;
+    padding: 14px 10px;
+    font-size: 2.2rem;
+  }
+
+  .countdown-separator {
+    font-size: 1.8rem;
   }
 
   .faq-question {

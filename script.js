@@ -161,20 +161,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ========================================
-  // ANIMATED PROGRESS BAR ON BONUS MOCKUP
-  // ========================================
-  var progressBar = document.querySelector('.mockup-v2-progress-bar');
-  if (progressBar) {
-    var progressObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          progressBar.style.width = '60%';
-          progressObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    progressBar.style.width = '0%';
-    progressObserver.observe(progressBar.parentElement);
-  }
 });
