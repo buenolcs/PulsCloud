@@ -2,9 +2,9 @@
 // SCROLL ANIMATIONS
 // ========================================
 document.addEventListener('DOMContentLoaded', function () {
-  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+  var animatedElements = document.querySelectorAll('.animate-on-scroll');
 
-  const observer = new IntersectionObserver(
+  var observer = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -13,11 +13,64 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     },
-    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
 
   animatedElements.forEach(function (el) {
     observer.observe(el);
+  });
+
+  // ========================================
+  // STAGGERED CARD ANIMATIONS
+  // ========================================
+  var staggerCards = document.querySelectorAll('.problema-card, .audience-card-v2');
+  var cardObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var delay = getComputedStyle(entry.target).getPropertyValue('--delay') || '0s';
+          var ms = parseFloat(delay) * 1000;
+          setTimeout(function () {
+            entry.target.classList.add('card-visible');
+          }, ms);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  staggerCards.forEach(function (card) {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+    cardObserver.observe(card);
+  });
+
+  // Add card-visible class styles
+  var style = document.createElement('style');
+  style.textContent = '.card-visible { opacity: 1 !important; transform: translateY(0) !important; }';
+  document.head.appendChild(style);
+
+  // ========================================
+  // TILT EFFECT ON PREMIUM CARDS
+  // ========================================
+  var tiltCards = document.querySelectorAll('.problema-card, .audience-card-v2');
+  tiltCards.forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var centerX = rect.width / 2;
+      var centerY = rect.height / 2;
+      var rotateX = ((y - centerY) / centerY) * -3;
+      var rotateY = ((x - centerX) / centerX) * 3;
+      card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
+    });
+
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+    });
   });
 
   // ========================================
@@ -30,13 +83,11 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.addEventListener('click', function () {
       var isActive = item.classList.contains('active');
 
-      // Close all
       faqItems.forEach(function (i) {
         i.classList.remove('active');
         i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
       });
 
-      // Open clicked (if it was closed)
       if (!isActive) {
         item.classList.add('active');
         btn.setAttribute('aria-expanded', 'true');
@@ -47,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   // COUNTDOWN TIMER
   // ========================================
-  // Set workshop date to 7 days from now
   var workshopDate = new Date();
   workshopDate.setDate(workshopDate.getDate() + 7);
   workshopDate.setHours(20, 0, 0, 0);
@@ -112,4 +162,21 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 600);
     });
   });
+
+  // ========================================
+  // ANIMATED PROGRESS BAR ON BONUS MOCKUP
+  // ========================================
+  var progressBar = document.querySelector('.mockup-v2-progress-bar');
+  if (progressBar) {
+    var progressObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          progressBar.style.width = '60%';
+          progressObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    progressBar.style.width = '0%';
+    progressObserver.observe(progressBar.parentElement);
+  }
 });
