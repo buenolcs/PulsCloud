@@ -649,7 +649,7 @@ a {
 }
 
 /* ========================================
-   PARA QUEM - PREMIUM CARDS
+   PARA QUEM - IMAGE CARDS
    ======================================== */
 .para-quem {
   padding: 100px 0;
@@ -723,46 +723,67 @@ a {
   background: rgba(255,255,255,0.04);
   backdrop-filter: blur(10px);
   border-radius: calc(var(--radius-xl) - 1px);
-  padding: 32px 28px;
+  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+}
+
+.audience-img-wrapper {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.audience-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
+}
+
+.audience-card-v2:hover .audience-img {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.audience-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.85) 100%);
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.audience-card-v2:hover .audience-img-overlay {
+  opacity: 0.8;
 }
 
 .audience-number {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: rgba(59, 130, 246, 0.15);
-  line-height: 1;
   position: absolute;
-  top: 20px;
-  right: 24px;
+  top: 12px;
+  right: 14px;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: rgba(255,255,255,0.2);
+  line-height: 1;
+  z-index: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-.audience-icon-v2 {
-  width: 56px;
-  height: 56px;
-  background: rgba(59, 130, 246, 0.12);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s;
+.audience-text {
+  padding: 20px 24px 24px;
 }
 
-.audience-card-v2:hover .audience-icon-v2 {
-  transform: scale(1.1);
-}
-
-.audience-card-content h4 {
-  font-size: 1.1rem;
+.audience-text h4 {
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--white);
+  margin-bottom: 6px;
 }
 
-.audience-card-content p {
-  font-size: 0.9rem;
+.audience-text p {
+  font-size: 0.88rem;
   color: rgba(255,255,255,0.55);
   line-height: 1.5;
 }
@@ -1057,6 +1078,26 @@ a {
 
 .mockup-v2-item.done span {
   color: rgba(255,255,255,0.9);
+}
+
+.blurred-text {
+  filter: blur(4px);
+  user-select: none;
+  transition: filter 0.3s;
+}
+
+.mockup-v2-blur-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: rgba(59, 130, 246, 0.1);
+  border-top: 1px solid rgba(59, 130, 246, 0.15);
+  color: var(--blue-400);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 .mockup-v2-footer {
@@ -1573,7 +1614,96 @@ a {
 }
 
 /* ========================================
-   RESPONSIVE
+   MOBILE-FIRST POLISH
+   ======================================== */
+
+/* Extra small - ensure nothing touches edges */
+@media (max-width: 374px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .btn-lg {
+    padding: 16px 24px;
+    font-size: 0.9rem;
+  }
+
+  .btn-xl {
+    padding: 18px 28px;
+    font-size: 0.95rem;
+  }
+
+  .countdown-number {
+    min-width: 60px;
+    padding: 12px 10px;
+    font-size: 2rem;
+  }
+
+  .countdown-separator {
+    font-size: 1.8rem;
+  }
+
+  .problema-card-inner {
+    padding: 24px 20px;
+  }
+
+  .oferta-premium-body {
+    padding: 28px 20px;
+  }
+
+  .oferta-premium-header {
+    padding: 28px 20px;
+  }
+
+  .pricing-amount {
+    font-size: 3.5rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .hero {
+    padding: 60px 0 50px;
+    min-height: auto;
+  }
+
+  .hero-bullets li {
+    font-size: 0.88rem;
+  }
+
+  .bonus-mega-content {
+    padding: 28px 20px;
+  }
+
+  .bonus-features-grid {
+    gap: 16px;
+  }
+
+  .consequencias-banner {
+    padding: 28px 20px;
+  }
+
+  .faq-question {
+    padding: 16px 20px;
+    font-size: 0.92rem;
+  }
+
+  .faq-answer p {
+    padding: 0 20px 16px;
+    font-size: 0.9rem;
+  }
+
+  .audience-img-wrapper {
+    height: 160px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
    ======================================== */
 @media (min-width: 640px) {
   .cards-grid {
@@ -1630,6 +1760,10 @@ a {
     grid-template-columns: 1.3fr 0.7fr;
     padding: 48px;
     align-items: center;
+  }
+
+  .audience-img-wrapper {
+    height: 200px;
   }
 }
 
